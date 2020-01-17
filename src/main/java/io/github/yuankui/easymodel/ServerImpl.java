@@ -22,7 +22,7 @@ public class ServerImpl implements Server {
         this.tableMap = service.tables()
                 .stream()
                 .collect(Collectors.toMap(
-                        t -> t.name(),
+                        Table::name,
                         t -> t
                 ));
     }
@@ -49,6 +49,10 @@ public class ServerImpl implements Server {
             Request req = jsonObject.toJavaObject(Request.class);
 
             Table table = tableMap.get(req.getTable());
+            
+            if (table == null) {
+                throw new RuntimeException("invalid table:" + req.getTable());
+            }
 
             if (req.getType().equals("insert")) {
                 InsertParam insertParam = req.getParam().toJavaObject(InsertParam.class);
