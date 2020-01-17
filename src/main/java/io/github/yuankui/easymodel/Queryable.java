@@ -1,15 +1,17 @@
 package io.github.yuankui.easymodel;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.util.List;
 
-public interface Queryable<T extends BaseObj> {
-    List<T> list();
+public interface Queryable {
+    List<JSONObject> list();
     
-    Queryable<T> filter(String fieldName, String value);
+    Queryable filter(String fieldName, String value);
     
-    Queryable<T> sort(String fieldName, boolean asc);
+    Queryable sort(String fieldName, boolean asc);
     
     int size();
     
-    Queryable<T> limit(int limit, int offset);
+    Queryable limit(int limit, int offset);
 }
